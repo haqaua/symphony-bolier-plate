@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Copy Role{% endblock %}
+
+{% block body %}
+    <h1>Copy</h1>
+
+    {{ include('role/_form.html.twig', {'button_label': 'Save'}) }}
+
+{% endblock %}

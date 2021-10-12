@@ -1,0 +1,49 @@
+{{ form_start(form, { 'attr': { 'id': 'user_form' } }) }}
+
+    {{ form_row(form._token) }}
+
+    <div class="mb-3 row">
+        {{ form_label(form.firstName, '', { 'label_attr': { 'class': 'col-sm-2' } }) }}
+        <div class="col-sm-4">
+            {{ form_widget(form.firstName, { 'attr': { 'class': 'form-control'}}) }}
+            <div class="form-error text-danger">
+                {{ form_errors(form.firstName) }}
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        {{ form_label(form.lastName, '', { 'label_attr': { 'class': 'col-sm-2' } }) }}
+        <div class="col-sm-4">
+            {{ form_widget(form.lastName, { 'attr': { 'class': 'form-control'}}) }}
+            <div class="form-error text-danger">
+                {{ form_errors(form.lastName) }}
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        {{ form_label(form.email, '', { 'label_attr': { 'class': 'col-sm-2' } }) }}
+        <div class="col-sm-4">
+            {{ form_widget(form.email, { 'attr': { 'class': 'form-control' }}) }}
+            <div class="form-error text-danger">
+                {{ form_errors(form.email) }}
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        {{ form_label(form.role, '', { 'label_attr': { 'class': 'col-sm-2' } }) }}
+        <div class="col-sm-4">
+            {% if app.request.get('id') is null %}
+                {{ form_widget(form.role, { 'attr': { 'class': 'form-control' }}) }}
+            {% else %}
+                {{ form_widget(form.role, { 'attr': { 'class': 'form-control', 'disabled': true }}) }}
+            {% endif %}
+            <div class="form-error text-danger">
+                {{ form_errors(form.role) }}
+            </div>
+        </div>
+    </div>
+    <div class="text-end">
+        <a class="btn btn-secondary" href="{{ path('user_index') }}">Cancel</a>
+        <button class="btn btn-secondary">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(form, {'render_rest': false}) }}

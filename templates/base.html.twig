@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+            <style>
+                .ml-auto {
+                    margin-left: auto;
+                }
+            </style>
+        {% endblock %}
+    </head>
+    <body>
+    <div class="container-fluid">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ path('app_login') }}">Logo</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    {% if app.user %}
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <span class="navbar-text text-end ml-auto">
+                            Hi {{ app.user.firstName }}! <a href="{{ path('app_logout') }}">Logout</a>
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <div class="row">
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-default">
+                    {% if app.user %}
+                    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                            <li class="nav-item">
+                                <a href="{{ path('user_index') }}" class="nav-link align-middle px-0">
+                                    <span class="ms-1 d-none d-sm-inline text-black">Users</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                    <span class="ms-1 d-sm-inline text-black">Global Settings</span> </a>
+                                <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                    <li class="w-100">
+                                        <a href="{{ path('role_index') }}" class="nav-link px-0"> <span class="ms-3 d-sm-inline text-black">Roles</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                             <span class="ms-3 d-sm-inline text-black">General Settings</span></a>
+                                        <ul class="collapse show nav flex-column ms-5" id="submenu2" data-bs-parent="#submenu1">
+                                            <li class="w-100">
+                                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline text-black">Email Templates</span></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline text-black">Level 3.2</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-9 col-xl-10 col-sm-10">
+                    {% block header %}{% endblock %}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% for message in app.flashes('danger') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </main>
+    </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    {% block javascripts %}
+        {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
+</html>
